@@ -6,6 +6,7 @@ def number_check(num):
     else:
         return "zero"
 
+## a prime number is only divisible by 1 and itself
 def first_10_primes():
     primes = []
     num = 2
@@ -20,6 +21,7 @@ def first_10_primes():
         num += 1
     return primes
 
+## sum of all numbers from 1 to 100
 def sum_1_to_100():
     total = 0
     i = 1

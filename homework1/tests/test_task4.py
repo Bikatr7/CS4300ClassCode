@@ -10,6 +10,8 @@ def test_with_integers():
     assert calculate_discount(50, 10) == 45
     assert calculate_discount(200, 25) == 150
 
+## uses pytest.approx to ensure floating point precision is correct
+
 def test_with_floats():
     assert calculate_discount(100.0, 20.0) == pytest.approx(80.0)
     assert calculate_discount(49.99, 15.5) == pytest.approx(42.24, rel=1e-2)
@@ -25,6 +27,7 @@ def test_edge_cases():
     assert calculate_discount(100, 0) == 100
     assert calculate_discount(100, 100) == 0
 
+## ensures non-numeric input raises a TypeError
 def test_non_numeric_input():
     with pytest.raises(TypeError):
         calculate_discount("100", 10)

@@ -1,3 +1,4 @@
+## hardcoded random books
 def get_first_three_books():
     books = [
         {"title": "The Hobbit", "author": "J.R.R. Tolkien"},
@@ -8,6 +9,7 @@ def get_first_three_books():
     ]
     return books[:3]
 
+## hardcoded random student database
 def student_database():
     return {
         "Alice Smith": "S001",

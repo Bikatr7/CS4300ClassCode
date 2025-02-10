@@ -5,6 +5,8 @@ import os
 def test_hello_world_output():
     test_dir = os.path.dirname(os.path.abspath(__file__))
     script_path = os.path.join(test_dir, '..', 'task1.py')
+
+    ## grabs the path to the script
     
     result = subprocess.run(
         [sys.executable, script_path],
@@ -12,6 +14,8 @@ def test_hello_world_output():
         text=True
     )
     
+    ## ensures no errors and correct output
+
     assert result.stdout == "Hello, World!\n"
     assert result.stderr == ''
     assert result.returncode == 0

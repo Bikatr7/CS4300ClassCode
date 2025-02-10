@@ -3,6 +3,8 @@ def count_words(filename):
         content = file.read()
     return len(content.split())
 
+## counts the number of words in the file
+
 def generate_test_functions():
     test_files = ['task6_read_me.txt']
     

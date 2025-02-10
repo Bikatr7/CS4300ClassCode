@@ -8,6 +8,8 @@ sys.path.append(homework_dir)
 
 from task2 import example_int, example_float, example_string, example_bool
 
+## each func ensures the type is correct and the value is correct
+
 def test_integer_type():
     assert isinstance(example_int, int), "Should be integer type"
     assert example_int == 42

@@ -5,6 +5,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from task6 import count_words
 
+## basically this parameterizes the test so that it can be run with different files
 @pytest.mark.parametrize("filename,expected", [
     ("task6_read_me.txt", 104)
 ])
