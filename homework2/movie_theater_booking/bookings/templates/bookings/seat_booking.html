@@ -1,0 +1,21 @@
+{% extends 'bookings/base.html' %}
+{% block title %}Book Seats - {{ movie.title }}{% endblock %}
+{% block content %}
+    <h2>Book Seats for {{ movie.title }}</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <form method="post">
+                {% csrf_token %}
+                <div class="seat-grid">
+                    {% for seat in seats %}
+                        <div class="seat">
+                            <input type="radio" name="seat" value="{{ seat.id }}" id="seat-{{ seat.seat_number }}">
+                            <label for="seat-{{ seat.seat_number }}">{{ seat.seat_number }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Book Selected Seat</button>
+            </form>
+        </div>
+    </div>
+{% endblock %} 

@@ -5,10 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Movie Theater{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .seat-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .seat {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .seat input[type="radio"] {
+            display: none;
+        }
+        .seat label {
+            display: block;
+            padding: 10px;
+            cursor: pointer;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin: 0;
+        }
+        .seat input[type="radio"]:checked + label {
+            background: #007bff;
+            color: white;
+        }
+        .messages {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'movie_list' %}">Movie Theater</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'movie_list' %}">Movies</a>
+                <a class="nav-link" href="{% url 'booking_history' %}">My Bookings</a>
+            </div>
+        </div>
+    </nav>
     <div class="container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         {% block content %}{% endblock %}
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
