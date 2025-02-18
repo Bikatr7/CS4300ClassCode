@@ -36,11 +36,63 @@ python3 manage.py runserver localhost:3000
 - Web Interface: http://localhost:3000/
 - API Endpoints: http://localhost:3000/api/
 
-## API Endpoints
+## API Documentation
 
-- /api/movies/ - List and manage movies
-- /api/seats/ - List and manage seats
-- /api/bookings/ - List and manage bookings
+### Movies
+
+GET /api/movies/
+Response:
+[
+    {
+        "id": 1,
+        "title": "Example Movie",
+        "description": "A great movie",
+        "release_date": "2024-02-18",
+        "duration": 120
+    }
+]
+
+POST /api/movies/
+Request:
+{
+    "title": "New Movie",
+    "description": "Another great movie",
+    "release_date": "2024-02-18",
+    "duration": 150
+}
+
+### Seats
+
+GET /api/seats/
+Response:
+[
+    {
+        "id": 1,
+        "movie": 1,
+        "seat_number": "A1",
+        "is_booked": false
+    }
+]
+
+### Bookings
+
+GET /api/bookings/
+Response:
+[
+    {
+        "id": 1,
+        "movie": 1,
+        "seats": [1, 2],
+        "booking_date": "2024-02-18T22:00:00Z"
+    }
+]
+
+POST /api/bookings/
+Request:
+{
+    "movie": 1,
+    "seats": [1, 2]
+}
 
 ## Web Interface URLs
 
@@ -82,6 +134,30 @@ python3 manage.py runserver localhost:3000
     - seat_booking.html - Interactive seat booking interface
     - booking_history.html - Booking records
     - add_movie.html - Movie creation form
+
+## Testing
+
+Run all tests:
+python3 manage.py test
+
+Run specific test case:
+python3 manage.py test bookings.tests.MovieTheaterTests
+
+Run specific test method:
+python3 manage.py test bookings.tests.MovieTheaterTests.test_booking_process
+
+Run tests with more detail:
+python3 manage.py test -v 2
+
+The tests verify:
+- Movie creation with automatic seat generation
+- API endpoints functionality
+- Multiple seat booking process
+- Prevention of double-booking
+- Web interface functionality
+- Movie creation through forms
+- Booking validation
+- Error handling
 
 ## Notes
 
