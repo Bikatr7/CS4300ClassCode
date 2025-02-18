@@ -13,6 +13,7 @@ urlpatterns = [
     
     ## Template URLs
     path('', views.MovieListView.as_view(), name='movie_list'),
+    path('movie/add/', views.add_movie, name='add_movie'),
     path('book/<int:movie_id>/', views.book_seat, name='book_seat'),
     path('history/', views.booking_history, name='booking_history'),
 ]

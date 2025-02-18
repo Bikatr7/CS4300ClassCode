@@ -1,21 +1,62 @@
 {% extends 'bookings/base.html' %}
 {% block title %}Book Seats - {{ movie.title }}{% endblock %}
 {% block content %}
-    <h2>Book Seats for {{ movie.title }}</h2>
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="text-center">Book Seats for {{ movie.title }}</h2>
+            <p class="text-muted text-center">{{ movie.description }}</p>
+        </div>
+    </div>
+
     <div class="row">
-        <div class="col-md-8">
-            <form method="post">
-                {% csrf_token %}
-                <div class="seat-grid">
-                    {% for seat in seats %}
-                        <div class="seat">
-                            <input type="radio" name="seat" value="{{ seat.id }}" id="seat-{{ seat.seat_number }}">
-                            <label for="seat-{{ seat.seat_number }}">{{ seat.seat_number }}</label>
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="text-center mb-5">
+                            <div class="screen p-3 bg-light text-center mb-4">Screen</div>
                         </div>
-                    {% endfor %}
+                        <div class="seat-grid">
+                            {% regroup movie.seats.all|dictsort:"seat_number" by seat_number|slice:":1" as seat_rows %}
+                            {% for row in seat_rows %}
+                                <div class="seat-row">
+                                    {% for seat in movie.seats.all|dictsort:"seat_number" %}
+                                        {% if seat.seat_number|slice:":1" == row.grouper %}
+                                            <div class="seat">
+                                                <input type="checkbox" name="seats" value="{{ seat.id }}" 
+                                                       id="seat-{{ seat.seat_number }}" 
+                                                       {% if seat.is_booked %}disabled{% endif %}>
+                                                <label for="seat-{{ seat.seat_number }}" 
+                                                       class="{% if seat.is_booked %}booked{% endif %}">
+                                                    {{ seat.seat_number }}
+                                                </label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-4 text-center">
+                            <div class="seat-legend mb-3">
+                                <span class="seat-sample available">Available</span>
+                                <span class="seat-sample booked">Booked</span>
+                                <span class="seat-sample selected">Selected</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Book Selected Seats</button>
+                        </div>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Book Selected Seat</button>
-            </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Movie Details</h5>
+                    <p><strong>Duration:</strong> {{ movie.duration }} minutes</p>
+                    <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %} 

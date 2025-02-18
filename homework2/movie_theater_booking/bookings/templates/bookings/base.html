@@ -7,34 +7,88 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         .seat-grid {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 10px;
-            margin: 20px 0;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        .seat-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
         .seat {
             text-align: center;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            width: 50px;  /* Fixed width for seats */
         }
-        .seat input[type="radio"] {
+        .seat input[type="checkbox"] {
             display: none;
         }
         .seat label {
             display: block;
-            padding: 10px;
+            padding: 15px 10px;
             cursor: pointer;
             background: #f8f9fa;
+            border: 2px solid #dee2e6;
             border-radius: 4px;
             margin: 0;
+            transition: all 0.3s ease;
+            width: 100%;
         }
-        .seat input[type="radio"]:checked + label {
+        .seat label:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+        .seat input[type="checkbox"]:checked + label {
+            background: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+        .seat label.booked {
+            background: #dc3545;
+            color: white;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .seat input[type="checkbox"]:disabled + label {
+            background: #dc3545;
+            color: white;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .seat-legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .seat-sample {
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .seat-sample.available {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+        }
+        .seat-sample.booked {
+            background: #dc3545;
+            color: white;
+        }
+        .seat-sample.selected {
             background: #007bff;
             color: white;
         }
         .messages {
             margin-bottom: 20px;
+        }
+        .screen {
+            background: #e9ecef;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
@@ -42,9 +96,15 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="{% url 'movie_list' %}">Movie Theater</a>
-            <div class="navbar-nav">
-                <a class="nav-link" href="{% url 'movie_list' %}">Movies</a>
-                <a class="nav-link" href="{% url 'booking_history' %}">My Bookings</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'movie_list' %}">Movies</a>
+                    <a class="nav-link" href="{% url 'booking_history' %}">Bookings</a>
+                    <a class="nav-link" href="{% url 'add_movie' %}">Add Movie</a>
+                </div>
             </div>
         </div>
     </nav>

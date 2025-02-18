@@ -1,0 +1,41 @@
+{% extends 'bookings/base.html' %}
+{% load widget_tweaks %}
+{% block title %}Manage Seats{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">Add New Seat</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                {{ field.errors }}
+                                {{ field|add_class:"form-control" }}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">Add Seat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Existing Seats</h2>
+                    <div class="seat-grid">
+                        {% for seat in seats %}
+                            <div class="seat {% if seat.is_booked %}booked{% endif %}">
+                                {{ seat.seat_number }}
+                            </div>
+                        {% empty %}
+                            <p>No seats added yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

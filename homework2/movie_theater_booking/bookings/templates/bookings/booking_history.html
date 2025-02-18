@@ -1,16 +1,28 @@
 {% extends 'bookings/base.html' %}
 {% block title %}Booking History{% endblock %}
 {% block content %}
-    <h2>Your Booking History</h2>
-    <div class="list-group">
+    <h2 class="mb-4">Booking History</h2>
+    <div class="row">
         {% for booking in bookings %}
-            <div class="list-group-item">
-                <h5>{{ booking.movie.title }}</h5>
-                <p>Seat: {{ booking.seat.seat_number }}</p>
-                <p>Booked on: {{ booking.booking_date }}</p>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ booking.movie.title }}</h5>
+                        <p class="card-text">
+                            <strong>Seats:</strong> 
+                            {% for seat in booking.seats.all %}
+                                {{ seat.seat_number }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                            <br>
+                            <strong>Date:</strong> {{ booking.booking_date|date:"F j, Y, g:i a" }}
+                        </p>
+                    </div>
+                </div>
             </div>
         {% empty %}
-            <p>No bookings found.</p>
+            <div class="col-12">
+                <p>No bookings found.</p>
+            </div>
         {% endfor %}
     </div>
 {% endblock %} 
