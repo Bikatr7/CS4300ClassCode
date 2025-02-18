@@ -1,3 +1,4 @@
 .pytest_cache/
 goals.txt
 .DS_Store
+*.sqlite3
