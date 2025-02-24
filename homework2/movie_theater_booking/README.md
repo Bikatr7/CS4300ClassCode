@@ -29,12 +29,14 @@ pip3 install -r requirements.txt
 python3 manage.py makemigrations
 python3 manage.py migrate
 
+(if you're not running on localhost, you can bind to 0.0.0.0:3000)
+
 4. Start the development server:
 python3 manage.py runserver localhost:3000
 
 5. Access the application:
 - Web Interface: http://localhost:3000/
-- API Endpoints: http://localhost:3000/api/
+- API Endpoints: http://localhost:3000/api/ (change where appropriate)
 
 ## API Documentation
 
